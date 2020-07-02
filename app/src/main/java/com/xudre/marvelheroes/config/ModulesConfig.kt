@@ -3,6 +3,7 @@ package com.xudre.marvelheroes.config
 import android.content.Context
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
+import com.xudre.marvelheroes.MainActivityViewModel
 import com.xudre.marvelheroes.repository.MarvelRepository
 import com.xudre.marvelheroes.repository.MarvelRepositoryImpl
 import com.xudre.marvelheroes.service.ApiService
@@ -38,6 +39,7 @@ val adapterModule = module {
 }
 
 val viewModelModule = module {
+    viewModel { MainActivityViewModel() }
     viewModel { CharacterListViewModel(get()) }
     viewModel { CharacterViewModel(get()) }
     viewModel { ComicBookViewModel(get()) }

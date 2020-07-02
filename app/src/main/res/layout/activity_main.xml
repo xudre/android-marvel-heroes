@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:viewBindingIgnore="true"
     tools:context=".MainActivity" >
 
     <fragment
@@ -14,4 +13,11 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_nav_graph" />
+
+    <include
+        layout="@layout/include_connectivity_cover"
+        android:id="@+id/v_connectivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 </FrameLayout>

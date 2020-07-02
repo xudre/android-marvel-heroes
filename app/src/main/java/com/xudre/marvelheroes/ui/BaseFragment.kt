@@ -6,18 +6,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.xudre.marvelheroes.R
 
 abstract class BaseFragment : Fragment() {
-
-    private var loadingView: View? = null
 
     protected abstract val viewModel: BaseViewModel?
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        loadingView = view?.findViewById(R.id.v_loading)
+        val loadingView: View? = view?.findViewWithTag("loading")
+
+        val connectivityView: View? = view?.findViewWithTag("connectivity")
 
         loadingView?.apply {
             visibility = View.GONE
@@ -36,6 +35,12 @@ abstract class BaseFragment : Fragment() {
 
                     toast.setGravity(Gravity.TOP, 0, 0)
                     toast.show()
+                }
+            })
+
+            it.connectivityState(requireContext()).observe(viewLifecycleOwner, Observer { hasConnection ->
+                connectivityView?.apply {
+                    visibility = if (hasConnection) View.GONE else View.VISIBLE
                 }
             })
         }

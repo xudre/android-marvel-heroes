@@ -47,13 +47,23 @@ class CharacterListFragment : BaseFragment() {
 
         listAdapter.characters.clear()
 
+        val connectivity = viewModel.connectivityState(requireContext())
+
+        connectivity.observe(viewLifecycleOwner, Observer { connected ->
+            if (connected && viewModel.characters.value == null) {
+                viewModel.getCharacters()
+            }
+        })
+
         viewModel.characters.observe(viewLifecycleOwner, Observer { paged ->
             listAdapter.characters.addAll(paged.items)
 
             listAdapter.notifyDataSetChanged()
         })
 
-        viewModel.getCharacters()
+        if (connectivity.value == true) {
+            viewModel.getCharacters()
+        }
     }
 
     override fun onDestroy() {
@@ -72,7 +82,11 @@ class CharacterListFragment : BaseFragment() {
 
     private fun selectedCharacter(character: CharacterModel) {
         findNavController()
-            .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToCharacterFragment(character))
+            .navigate(
+                CharacterListFragmentDirections.actionCharacterListFragmentToCharacterFragment(
+                    character
+                )
+            )
     }
 
 }

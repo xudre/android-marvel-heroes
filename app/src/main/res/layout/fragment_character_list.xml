@@ -12,9 +12,8 @@
         tools:listitem="@layout/list_item_character" />
 
     <include
-        android:id="@+id/v_loading"
         layout="@layout/include_loading_cover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
