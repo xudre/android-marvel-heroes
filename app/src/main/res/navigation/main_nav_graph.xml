@@ -13,25 +13,17 @@
         <action
             android:id="@+id/action_splashFragment_to_characterListFragment"
             app:destination="@id/characterListFragment"
-            app:popUpTo="@id/splashFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/characterListFragment"
-        android:name="com.xudre.marvelheroes.ui.characterlist.HomeFragment"
-        android:label="Characters"
-        tools:layout="@layout/fragment_character_list">
-        <action
-            android:id="@+id/action_homeFragment_to_characterFragment"
-            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.xudre.marvelheroes.ui.character.CharacterFragment"
-        android:label="fragment_character"
-        tools:layout="@layout/fragment_character" >
+        android:label="Character"
+        tools:layout="@layout/fragment_character">
         <action
-            android:id="@+id/action_characterFragment_to_comicBookFragment2"
+            android:id="@+id/action_characterFragment_to_comicBookFragment"
             app:destination="@id/comicBookFragment" />
         <argument
             android:name="character"
@@ -40,6 +32,15 @@
     <fragment
         android:id="@+id/comicBookFragment"
         android:name="com.xudre.marvelheroes.ui.comicbook.ComicBookFragment"
-        android:label="fragment_comic_book"
+        android:label="Character Comic Book"
         tools:layout="@layout/fragment_comic_book" />
+    <fragment
+        android:id="@+id/characterListFragment"
+        android:name="com.xudre.marvelheroes.ui.characterlist.CharacterListFragment"
+        android:label="Character List"
+        tools:layout="@layout/fragment_character_list">
+        <action
+            android:id="@+id/action_characterListFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+    </fragment>
 </navigation>

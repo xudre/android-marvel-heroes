@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.character.CharacterFragment"/>
+    tools:context=".ui.character.CharacterFragment" >
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            tools:text="Character Name" />
+
+        <TextView
+            android:id="@+id/tv_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            tools:text="Character biography with a long text with no more than three lines. nterdum et malesuada fames ac ante ipsum primis in faucibus. Sed pulvinar neque justo, at feugiat lectus fringilla vel. Nullam sed leo malesuada, euismod nibh nec, dignissim leo. Maecenas euismod sem eu purus commodo, ac varius enim blandit. Sed vitae nibh lectus. Quisque porttitor quam vitae tellus lobortis pulvinar. Integer nisl elit, suscipit ut quam interdum, rhoncus lobortis quam. Vestibulum vitae tortor lorem. Proin quis ornare dui. Pellentesque ut lobortis dolor." />
+
+        <Button
+            android:id="@+id/bt_comic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Show the more expensive comics" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

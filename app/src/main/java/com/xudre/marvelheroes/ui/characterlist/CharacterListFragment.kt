@@ -5,38 +5,49 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.xudre.marvelheroes.R
+import com.xudre.marvelheroes.databinding.FragmentCharacterListBinding
+import com.xudre.marvelheroes.model.CharacterModel
 import com.xudre.marvelheroes.ui.BaseFragment
-import kotlinx.android.synthetic.main.fragment_character_list.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment() {
+class CharacterListFragment : BaseFragment() {
 
     override val viewModel: CharacterListViewModel by viewModel()
 
+    private var viewBinding: FragmentCharacterListBinding? = null
+
     private val listAdapter: CharacterListAdapter by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        listAdapter.onCharacterTouched = {
+            selectedCharacter(it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_character_list, container, false)
+        val binding = FragmentCharacterListBinding.inflate(inflater, container, false)
+
+        viewBinding = binding
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         setupRecyclerView()
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         listAdapter.characters.clear()
 
-        viewModel.characters.observe(this, Observer { paged ->
+        viewModel.characters.observe(viewLifecycleOwner, Observer { paged ->
             listAdapter.characters.addAll(paged.items)
 
             listAdapter.notifyDataSetChanged()
@@ -45,10 +56,23 @@ class HomeFragment : BaseFragment() {
         viewModel.getCharacters()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        viewBinding = null
+    }
+
     private fun setupRecyclerView() {
-        rv_characters.adapter = listAdapter
-        rv_characters.layoutManager = LinearLayoutManager(context)
-        rv_characters.setHasFixedSize(true)
+        viewBinding?.apply {
+            rvCharacters.adapter = listAdapter
+            rvCharacters.layoutManager = LinearLayoutManager(context)
+            rvCharacters.setHasFixedSize(true)
+        }
+    }
+
+    private fun selectedCharacter(character: CharacterModel) {
+        findNavController()
+            .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToCharacterFragment(character))
     }
 
 }

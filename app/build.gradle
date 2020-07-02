@@ -17,6 +17,10 @@ android {
         targetCompatibility Versions.jdkTarget
     }
 
+    kotlinOptions {
+        jvmTarget = Versions.jdkTarget.toString()
+    }
+
     defaultConfig {
         applicationId App.applicationId
         minSdkVersion Versions.minSdk
@@ -32,6 +36,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 

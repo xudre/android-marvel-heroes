@@ -1,30 +1,28 @@
 package com.xudre.marvelheroes.ui.characterlist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import com.xudre.marvelheroes.R
+import com.xudre.marvelheroes.databinding.ListItemCharacterBinding
 import com.xudre.marvelheroes.model.CharacterModel
 
 class CharacterListAdapter(private val picasso: Picasso) : RecyclerView.Adapter<CharacterListAdapter.CharacterItemViewHolder>() {
 
     val characters: MutableList<CharacterModel> = mutableListOf()
 
-    var onCharacterTouched: ((position: Int) -> Unit)? = null
+    var onCharacterTouched: ((character: CharacterModel) -> Unit)? = null
 
-    inner class CharacterItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val thumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
-        val name: TextView = view.findViewById(R.id.tv_name)
-    }
+    var thumbnailImageSize = 200
+
+    inner class CharacterItemViewHolder(val binding: ListItemCharacterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_character, parent, false);
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ListItemCharacterBinding.inflate(inflater, parent, false)
 
-        return CharacterItemViewHolder(view)
+        return CharacterItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int = characters.size
@@ -32,18 +30,17 @@ class CharacterListAdapter(private val picasso: Picasso) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: CharacterItemViewHolder, position: Int) {
         val character = characters[position]
 
-        holder.name.text = character.name
+        holder.binding.apply {
+            picasso.load(character.imageUrl)
+                .resize(thumbnailImageSize, thumbnailImageSize)
+                .centerInside()
+                .into(ivThumbnail)
 
-        picasso.load(character.imageUrl)
-//            .resize(
-//                200,
-//                200
-//            )
-//            .centerInside()
-            .into(holder.thumbnail)
+            tvName.text = character.name
 
-        holder.itemView.setOnClickListener {
-            onCharacterTouched?.invoke(position)
+            root.setOnClickListener {
+                onCharacterTouched?.invoke(character)
+            }
         }
     }
 }

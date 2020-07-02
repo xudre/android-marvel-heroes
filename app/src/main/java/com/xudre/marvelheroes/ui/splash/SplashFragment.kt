@@ -24,7 +24,7 @@ class SplashFragment : Fragment() {
         super.onStart()
 
         Handler().postDelayed({
-            findNavController().navigate(R.id.characterListFragment)
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToCharacterListFragment())
         }, delayDuration)
     }
 }
