@@ -1,7 +1,7 @@
 package com.xudre.marvelheroes.ui.character
 
-import androidx.lifecycle.ViewModel
+import com.xudre.marvelheroes.repository.MarvelRepository
+import com.xudre.marvelheroes.ui.BaseViewModel
 
-class CharacterViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class CharacterViewModel(private val marvelRepository: MarvelRepository) : BaseViewModel() {
 }

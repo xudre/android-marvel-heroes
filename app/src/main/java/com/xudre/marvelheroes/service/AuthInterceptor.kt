@@ -1,6 +1,5 @@
 package com.xudre.marvelheroes.service
 
-import com.xudre.marvelheroes.MarvelApplication
 import com.xudre.marvelheroes.config.ApiConfig
 import com.xudre.marvelheroes.extension.hash
 import okhttp3.Interceptor
@@ -11,13 +10,8 @@ import java.util.*
 class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = signedRequest(chain.request())
-        val response = chain.proceed(request)
 
-        when (response.code()) {
-            401 -> MarvelApplication.notify("Não autorizado.")
-        }
-
-        return response
+        return chain.proceed(request)
     }
 
     private fun signedRequest(request: Request): Request {
@@ -28,7 +22,7 @@ class AuthInterceptor : Interceptor {
             .newBuilder()
             .addQueryParameter("ts", timestamp)
             .addQueryParameter("hash", hash)
-            .addQueryParameter("apiKey", ApiConfig.KEY)
+            .addQueryParameter("apikey", ApiConfig.KEY)
             .build()
 
         return request.newBuilder()

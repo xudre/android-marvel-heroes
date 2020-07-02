@@ -68,7 +68,7 @@ object Dependency {
         const val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     }
 
-    // Image downloading and cache library:
+    // Picasso image downloading and cache library:
     object Picasso {
         const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
     }

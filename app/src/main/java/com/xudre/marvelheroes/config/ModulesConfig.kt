@@ -7,10 +7,17 @@ import com.xudre.marvelheroes.repository.MarvelRepository
 import com.xudre.marvelheroes.repository.MarvelRepositoryImpl
 import com.xudre.marvelheroes.service.ApiService
 import com.xudre.marvelheroes.service.AuthInterceptor
+import com.xudre.marvelheroes.ui.character.CharacterViewModel
+import com.xudre.marvelheroes.ui.characterlist.CharacterListAdapter
+import com.xudre.marvelheroes.ui.characterlist.CharacterListViewModel
+import com.xudre.marvelheroes.ui.comicbook.ComicBookViewModel
 import okhttp3.OkHttpClient
+import okhttp3.Protocol
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 val networkModule = module {
     // Retrofit
@@ -26,8 +33,19 @@ val repositoryModule = module {
     single<MarvelRepository> { MarvelRepositoryImpl(get()) }
 }
 
+val adapterModule = module {
+    single { CharacterListAdapter(get()) }
+}
+
+val viewModelModule = module {
+    viewModel { CharacterListViewModel(get()) }
+    viewModel { CharacterViewModel(get()) }
+    viewModel { ComicBookViewModel(get()) }
+}
+
 private fun buildHttpClient(interceptor: AuthInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder()
+        .protocols(Collections.singletonList(Protocol.HTTP_1_1))
         .addInterceptor(interceptor)
         .build()
 }

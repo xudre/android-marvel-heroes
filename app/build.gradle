@@ -59,7 +59,7 @@ dependencies {
     implementation Dependency.Retrofit.retrofit
     implementation Dependency.Retrofit.converterGson
 
-    // Image downloading and cache library:
+    // Picasso image downloading and cache library:
     implementation Dependency.Picasso.picasso
 
     // Lottie animation library:

@@ -8,15 +8,17 @@ interface MarvelRepository {
     fun getCharacters(
         page: Number,
         perPage: Number,
-        onSuccess: (Paged<CharacterModel>) -> Unit,
-        onFail: (Throwable?) -> Unit
+        onSuccess: (Paged<CharacterModel>?) -> Unit,
+        onFail: (Throwable?) -> Unit,
+        onFinish: () -> Unit
     )
 
     fun getComicsFromCharacter(
         characterId: Number,
         page: Number,
         perPage: Number,
-        onSuccess: (ComicBookModel?) -> Unit,
-        onFail: (Throwable?) -> Unit
+        onSuccess: (Paged<ComicBookModel>?) -> Unit,
+        onFail: (Throwable?) -> Unit,
+        onFinish: () -> Unit
     )
 }
