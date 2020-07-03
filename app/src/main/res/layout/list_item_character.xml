@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:layout_marginEnd="20dp"
         android:layout_weight="0"
-        android:contentDescription="Character name"
+        android:contentDescription="@string/character_name"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 

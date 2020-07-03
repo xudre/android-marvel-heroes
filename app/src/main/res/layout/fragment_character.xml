@@ -49,13 +49,13 @@
             android:id="@+id/bt_comic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show the more expensive comic" />
+            android:text="@string/show_the_more_expensive_comic" />
 
         <TextView
             android:id="@+id/tv_no_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This character has no comics to display."
+            android:text="@string/this_character_has_no_comics_to_display"
             android:textAlignment="center"
             android:textStyle="italic" />
     </LinearLayout>

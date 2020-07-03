@@ -6,4 +6,4 @@ class CharacterResponse(
     val description: String,
     val thumbnail: ImageResponse,
     val comics: CharacterComicsResponse
-)
+) : BaseResponse

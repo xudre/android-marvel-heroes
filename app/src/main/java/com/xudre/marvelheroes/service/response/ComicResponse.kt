@@ -6,4 +6,4 @@ class ComicResponse (
     val description: String?,
     val thumbnail: ImageResponse,
     val prices: List<ComicPriceResponse>
-)
+) : BaseResponse

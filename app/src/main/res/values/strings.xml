@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Marvel Heroes</string>
+    <string name="show_the_more_expensive_comic">Show the more expensive comic</string>
+    <string name="this_character_has_no_comics_to_display">This character has no comics to display.</string>
+    <string name="marvel_character_list">Marvel Character List</string>
+    <string name="no_internet_connection">⚠ No internet connection.</string>
+    <string name="loading">Loading…</string>
+    <string name="character_name">Character name</string>
+
+    <string name="error_api_generic">The API returned an unknown error.</string>
+    <string name="error_api_invalid_hash_or_key">Invalid API hash or key.</string>
+    <string name="error_endpoint_inaccessible">The required endpoint is inaccessible.</string>
 </resources>
