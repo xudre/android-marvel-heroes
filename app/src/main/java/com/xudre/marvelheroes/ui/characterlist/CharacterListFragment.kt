@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xudre.marvelheroes.databinding.FragmentCharacterListBinding
 import com.xudre.marvelheroes.model.CharacterModel
 import com.xudre.marvelheroes.ui.BaseFragment
@@ -20,6 +21,8 @@ class CharacterListFragment : BaseFragment() {
     private var viewBinding: FragmentCharacterListBinding? = null
 
     private val listAdapter: CharacterListAdapter by inject()
+
+    private var isLastPage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,25 +48,33 @@ class CharacterListFragment : BaseFragment() {
 
         setupRecyclerView()
 
-        listAdapter.characters.clear()
-
         val connectivity = viewModel.connectivityState(requireContext())
 
         connectivity.observe(viewLifecycleOwner, Observer { connected ->
-            if (connected && viewModel.characters.value == null) {
-                viewModel.getCharacters()
+            if (connected && viewModel.characters.value?.items.isNullOrEmpty() && !isLastPage) {
+                requestCharacters()
+            }
+        })
+
+        viewModel.loadingState.observe(viewLifecycleOwner, Observer { loading ->
+            if (!loading && isLastPage) {
+                listAdapter.removeLoading()
             }
         })
 
         viewModel.characters.observe(viewLifecycleOwner, Observer { paged ->
-            listAdapter.characters.addAll(paged.items)
+            viewBinding?.apply {
+                flLoading.visibility = if (paged.page.toInt() >= 0) View.GONE else View.VISIBLE
+            }
+
+            isLastPage = paged.items.isNullOrEmpty()
+
+            listAdapter.removeLoading()
+
+            listAdapter.addItems(paged.items)
 
             listAdapter.notifyDataSetChanged()
         })
-
-        if (connectivity.value == true) {
-            viewModel.getCharacters()
-        }
     }
 
     override fun onDestroy() {
@@ -74,9 +85,39 @@ class CharacterListFragment : BaseFragment() {
 
     private fun setupRecyclerView() {
         viewBinding?.apply {
+            val layoutManager = LinearLayoutManager(context)
+
             rvCharacters.adapter = listAdapter
-            rvCharacters.layoutManager = LinearLayoutManager(context)
-            rvCharacters.setHasFixedSize(true)
+            rvCharacters.layoutManager = layoutManager
+            rvCharacters.setHasFixedSize(false)
+            rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val verticalThreshold = 5
+
+                    if (viewModel.loadingState.value != true &&
+                        !isLastPage &&
+                        !recyclerView.canScrollVertically(verticalThreshold)
+                    ) {
+                        requestNextCharacters()
+                    }
+                }
+            })
+        }
+    }
+
+    private fun requestCharacters() {
+        listAdapter.clearItems()
+
+        viewModel.getCharacters()
+    }
+
+    private fun requestNextCharacters() {
+        viewModel.characters.value?.let { paged ->
+            val onPage = paged.page.toInt()
+
+            viewModel.getCharacters(onPage + 1)
         }
     }
 

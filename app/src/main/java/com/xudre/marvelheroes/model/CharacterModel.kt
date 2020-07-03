@@ -9,7 +9,8 @@ data class CharacterModel(
     val id: Number,
     val imageUrl: String,
     val name: String,
-    val description: String
+    val description: String?,
+    val comicsTotal: Number
 ): Parcelable {
     companion object {
         fun factory(data: CharacterResponse): CharacterModel {
@@ -19,7 +20,8 @@ data class CharacterModel(
                 data.id,
                 "${path}.${data.thumbnail.extension}",
                 data.name,
-                data.description
+                data.description,
+                data.comics.available
             )
         }
     }

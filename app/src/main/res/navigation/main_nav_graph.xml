@@ -33,7 +33,14 @@
         android:id="@+id/comicBookFragment"
         android:name="com.xudre.marvelheroes.ui.comicbook.ComicBookFragment"
         android:label="Character Comic Book"
-        tools:layout="@layout/fragment_comic_book" />
+        tools:layout="@layout/fragment_comic_book" >
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+        <argument
+            android:name="comicsTotal"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/characterListFragment"
         android:name="com.xudre.marvelheroes.ui.characterlist.CharacterListFragment"

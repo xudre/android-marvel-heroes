@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
 import com.xudre.marvelheroes.databinding.FragmentCharacterBinding
@@ -16,11 +17,11 @@ class CharacterFragment : BaseFragment() {
 
     override val viewModel: CharacterViewModel by viewModel()
 
-    private val picasso: Picasso by inject()
-
     private var viewBinding: FragmentCharacterBinding? = null
 
     private val args: CharacterFragmentArgs by navArgs()
+
+    private val picasso: Picasso by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,6 +43,13 @@ class CharacterFragment : BaseFragment() {
 
                 tvName.text = character.name
                 tvBio.text = character.description
+                tvBio.visibility = if (character.description.isNullOrBlank()) View.GONE else View.VISIBLE
+
+                btComic.setOnClickListener {
+                    openComicBook()
+                }
+                btComic.visibility = if (character.comicsTotal.toInt() > 0) View.VISIBLE else View.GONE
+                tvNoComics.visibility = if (character.comicsTotal.toInt() < 1) View.VISIBLE else View.GONE
             }
         })
 
@@ -52,6 +60,15 @@ class CharacterFragment : BaseFragment() {
         super.onDestroy()
 
         viewBinding = null
+    }
+
+    private fun openComicBook() {
+        viewModel.character.value?.let { character ->
+            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToComicBookFragment(
+                character.id.toInt(),
+                character.comicsTotal.toInt()
+            ))
+        }
     }
 
 }

@@ -33,13 +33,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:layout_marginBottom="16dp"
             tools:text="Character Name" />
 
         <TextView
             android:id="@+id/tv_bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
             android:ellipsize="end"
             android:maxLines="3"
             tools:text="Character biography with a long text with no more than three lines. nterdum et malesuada fames ac ante ipsum primis in faucibus. Sed pulvinar neque justo, at feugiat lectus fringilla vel. Nullam sed leo malesuada, euismod nibh nec, dignissim leo. Maecenas euismod sem eu purus commodo, ac varius enim blandit. Sed vitae nibh lectus. Quisque porttitor quam vitae tellus lobortis pulvinar. Integer nisl elit, suscipit ut quam interdum, rhoncus lobortis quam. Vestibulum vitae tortor lorem. Proin quis ornare dui. Pellentesque ut lobortis dolor." />
@@ -48,7 +49,14 @@
             android:id="@+id/bt_comic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Show the more expensive comics" />
+            android:text="Show the more expensive comic" />
+
+        <TextView
+            android:id="@+id/tv_no_comics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This character has no comics to display."
+            android:textAlignment="center"
+            android:textStyle="italic" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

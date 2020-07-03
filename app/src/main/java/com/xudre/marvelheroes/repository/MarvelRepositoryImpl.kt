@@ -81,8 +81,9 @@ class MarvelRepositoryImpl(val service: ApiService) : MarvelRepository {
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
+                            val count = it.data.count.toLong()
                             val items = mutableListOf<ComicBookModel>()
-                            val onPage = it.data.offset.toLong() / it.data.count.toLong()
+                            val onPage = if (count > 0) it.data.offset.toLong() / count else 0
 
                             it.data.results.forEach { comic ->
                                 items.add(ComicBookModel.factory(comic))

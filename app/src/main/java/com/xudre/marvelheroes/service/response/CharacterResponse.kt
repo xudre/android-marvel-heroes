@@ -4,5 +4,6 @@ class CharacterResponse(
     val id: Number,
     val name: String,
     val description: String,
-    val thumbnail: ImageResponse
+    val thumbnail: ImageResponse,
+    val comics: CharacterComicsResponse
 )

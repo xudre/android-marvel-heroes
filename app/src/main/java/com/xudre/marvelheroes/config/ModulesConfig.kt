@@ -41,7 +41,7 @@ val adapterModule = module {
 val viewModelModule = module {
     viewModel { MainActivityViewModel() }
     viewModel { CharacterListViewModel(get()) }
-    viewModel { CharacterViewModel(get()) }
+    viewModel { CharacterViewModel() }
     viewModel { ComicBookViewModel(get()) }
 }
 
