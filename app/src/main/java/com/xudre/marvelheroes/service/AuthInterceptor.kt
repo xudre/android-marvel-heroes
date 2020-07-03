@@ -6,6 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import java.util.*
+import kotlin.math.roundToInt
 
 class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -15,8 +16,7 @@ class AuthInterceptor : Interceptor {
     }
 
     private fun signedRequest(request: Request): Request {
-        val now = Calendar.getInstance()
-        val timestamp = now.timeInMillis.toString()
+        val timestamp = (Calendar.getInstance().timeInMillis / 1000f).roundToInt().toString()
         val hash = "$timestamp${ApiConfig.SECRET}${ApiConfig.KEY}".hash(ApiConfig.DIGEST)
         val url = request.url()
             .newBuilder()

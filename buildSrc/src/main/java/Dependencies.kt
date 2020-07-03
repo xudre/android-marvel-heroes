@@ -26,6 +26,8 @@ object Versions {
     const val koin = "2.1.5"
     // Retrofit
     const val retrofit = "2.9.0"
+    // OkHttp
+    const val okhttp = "4.7.2"
     // Picasso
     const val picasso = "2.71828"
     // Lottie
@@ -66,6 +68,7 @@ object Dependency {
     object Retrofit {
         const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         const val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+        const val mockwebserver = "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}"
     }
 
     // Picasso image downloading and cache library:

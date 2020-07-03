@@ -66,6 +66,7 @@ dependencies {
     // Retrofit API abstraction library:
     implementation Dependency.Retrofit.retrofit
     implementation Dependency.Retrofit.converterGson
+    testImplementation Dependency.Retrofit.mockwebserver
 
     // Picasso image downloading and cache library:
     implementation Dependency.Picasso.picasso
